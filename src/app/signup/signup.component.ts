@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-signup',
-  imports: [],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrls: ['./signup.component.css'],
+  imports: [ReactiveFormsModule],
 })
 export class SignupComponent {
-
+  profileForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
 }

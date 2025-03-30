@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login',
-  imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'],
+  imports: [ReactiveFormsModule],
 })
 export class LoginComponent {
-
+  profileForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
 }
