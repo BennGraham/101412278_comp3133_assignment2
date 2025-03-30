@@ -21,13 +21,28 @@ import { MatIconModule } from '@angular/material/icon';
     <mat-toolbar>
       <span>COMP3133 | Assignment 2</span>
       <span class="spacer"></span>
-      <button routerLink="/login" mat-icon-button aria-label="Login link">
+      <button
+        routerLink="/login"
+        routerLinkActive="active-link"
+        mat-icon-button
+        aria-label="Login link"
+      >
         <mat-icon>login</mat-icon>
       </button>
-      <button routerLink="/signup" mat-icon-button aria-label="Signup link">
+      <button
+        routerLink="/signup"
+        routerLinkActive="active-link"
+        mat-icon-button
+        aria-label="Signup link"
+      >
         <mat-icon>person_add</mat-icon>
       </button>
-      <button routerLink="/employee" mat-icon-button aria-label="Employee link">
+      <button
+        routerLink="/employee"
+        mat-icon-button
+        routerLinkActive="active-link"
+        aria-label="Employee link"
+      >
         <mat-icon>people</mat-icon>
       </button>
     </mat-toolbar>
