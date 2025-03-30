@@ -24,3 +24,8 @@ form {
 .active-link {
   background: lightskyblue;
 }
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
