@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { GraphqlService } from '../network/graphql.service';
 
 @Component({
   selector: 'app-signup',
@@ -28,8 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class SignupComponent {
   hidePassword = true;
   signupForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -37,12 +37,10 @@ export class SignupComponent {
     ]),
   });
 
-  get firstName() {
-    return this.signupForm.get('firstName');
-  }
+  constructor(private graphqlService: GraphqlService) {}
 
-  get lastName() {
-    return this.signupForm.get('lastName');
+  get username() {
+    return this.signupForm.get('username');
   }
 
   get email() {
@@ -55,7 +53,20 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log(this.signupForm.value);
+      this.graphqlService
+        .signup(
+          this.username?.value!,
+          this.email?.value!,
+          this.password?.value!
+        )
+        .subscribe({
+          next: (user) => {
+            console.log(user);
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
     }
   }
 }

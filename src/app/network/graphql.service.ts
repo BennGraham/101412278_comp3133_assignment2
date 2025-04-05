@@ -1,0 +1,40 @@
+import { Injectable } from '@angular/core';
+import { Apollo, gql } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GraphqlService {
+  private apiUrl =
+    'https://one01412278-comp3133-assignment1.onrender.com/graphql';
+
+  constructor(private apollo: Apollo) {}
+
+  signup(username: string, email: string, password: string): Observable<User> {
+    return this.apollo
+      .mutate<{ signup: User }>({
+        mutation: gql`
+          mutation Signup(
+            $username: String!
+            $email: String!
+            $password: String!
+          ) {
+            signup(username: $username, email: $email, password: $password) {
+              id
+              username
+              email
+            }
+          }
+        `,
+        variables: {
+          username,
+          email,
+          password,
+        },
+      })
+      .pipe(map((result) => result.data!.signup));
+  }
+}
