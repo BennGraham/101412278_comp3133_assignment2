@@ -1,31 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GraphqlService } from '../network/graphql.service';
 import { Employee } from '../models/employee';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { AvatarComponent } from '../avatar/avatar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-employee',
   imports: [
     CommonModule,
     MatCardModule,
-    AvatarComponent,
     MatTableModule,
     MatIconModule,
     MatDialogModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent implements OnInit, AfterViewInit {
   employees: Employee[] = [];
   currentEmployeeIndex: number = 0;
+  dataSource = new MatTableDataSource<Employee>();
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private graphqlService: GraphqlService,
     private dialog: MatDialog
@@ -75,6 +81,10 @@ export class EmployeeComponent implements OnInit {
     console.log('delete button');
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit(): void {
     this.onLoad();
   }
@@ -82,12 +92,21 @@ export class EmployeeComponent implements OnInit {
   private onLoad() {
     return this.graphqlService.getAllEmployees().subscribe({
       next: (employees) => {
-        console.log(employees);
         this.employees = employees;
+        this.dataSource.data = employees;
+        this.dataSource.filterPredicate = (data: Employee, filter: string) => {
+          const searchStr = Object.values(data).join(' ').toLowerCase();
+          return searchStr.indexOf(filter.toLowerCase()) !== -1;
+        };
       },
       error: (error) => {
         console.error('Error loading employees', error);
       },
     });
+  }
+
+  filterEmployees(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
