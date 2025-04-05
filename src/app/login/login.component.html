@@ -2,23 +2,29 @@
   <h2>Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
+      <mat-label>Username</mat-label>
       <input
         matInput
-        formControlName="email"
-        type="email"
-        placeholder="example@domain.com"
+        formControlName="username"
+        type="username"
+        placeholder="username"
       />
       <!-- Using *ngIf here instead of conditionally rendering using @if because material expects error messages to be direct children of the form field, annoying -->
       <mat-error
-        *ngIf="email?.hasError('required') && (email?.dirty || email?.touched)"
+        *ngIf="
+          username?.hasError('required') &&
+          (username?.dirty || username?.touched)
+        "
       >
-        Email is required
+        Username is required
       </mat-error>
       <mat-error
-        *ngIf="email?.hasError('email') && (email?.dirty || email?.touched)"
+        *ngIf="
+          username?.hasError('username') &&
+          (username?.dirty || username?.touched)
+        "
       >
-        Please enter a valid email
+        Please enter a username
       </mat-error>
     </mat-form-field>
 
