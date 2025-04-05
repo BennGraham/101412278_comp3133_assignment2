@@ -1,23 +1,28 @@
 <div class="employee-list">
-  <mat-card class="employee-card" *ngFor="let employee of employees">
-    <mat-card-header class="employee-title">
-      <app-avatar
-        [name]="`${employee.first_name} ${employee.last_name}`"
-      ></app-avatar>
-      <div>
-        <mat-card-title
-          >{{ employee.first_name }} {{ employee.last_name }}</mat-card-title
-        >
-        <mat-card-subtitle>{{ employee.designation }}</mat-card-subtitle>
-      </div>
-    </mat-card-header>
-    <div mat-card-avatar class="employee-avatar"></div>
-    <mat-card-content>
-      <p><strong>Email:</strong> {{ employee.email }}</p>
-      <p><strong>Department:</strong> {{ employee.department }}</p>
-      <p><strong>Gender:</strong> {{ employee.gender }}</p>
-      <p><strong>Salary:</strong> ${{ employee.salary }}</p>
-      <p><strong>Joined:</strong> {{ employee.joined_date | date }}</p>
-    </mat-card-content>
-  </mat-card>
+  <h2>Employees</h2>
+
+  <table mat-table [dataSource]="employees" class="employee-table">
+    <ng-container matColumnDef="first_name">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.first_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.last_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="designation">
+      <th mat-header-cell *matHeaderCellDef>Job Title</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.designation }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <td mat-cell *matCellDef="let employee">{{ employee.department }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>
