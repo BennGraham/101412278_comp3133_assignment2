@@ -1,30 +1,36 @@
 <mat-toolbar>
   <span>COMP3133 | Assignment 2</span>
   <span class="spacer"></span>
-  <button
-    routerLink="/login"
-    routerLinkActive="active-link"
-    mat-icon-button
-    aria-label="Login link"
-  >
-    <mat-icon>login</mat-icon>
-  </button>
-  <button
-    routerLink="/signup"
-    routerLinkActive="active-link"
-    mat-icon-button
-    aria-label="Signup link"
-  >
-    <mat-icon>person_add</mat-icon>
-  </button>
-  <button
-    routerLink="/employee"
-    mat-icon-button
-    routerLinkActive="active-link"
-    aria-label="Employee link"
-  >
-    <mat-icon>people</mat-icon>
-  </button>
+  @if (!(isAuthenticated$ | async)) {
+    <button
+      routerLink="/login"
+      routerLinkActive="active-link"
+      mat-icon-button
+      aria-label="Login link"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+    <button
+      routerLink="/signup"
+      routerLinkActive="active-link"
+      mat-icon-button
+      aria-label="Signup link"
+    >
+      <mat-icon>person_add</mat-icon>
+    </button>
+  } @else {
+    <button (click)="logout()" mat-icon-button aria-label="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button
+      routerLink="/employee"
+      mat-icon-button
+      routerLinkActive="active-link"
+      aria-label="Employee link"
+    >
+      <mat-icon>people</mat-icon>
+    </button>
+  }
 </mat-toolbar>
 
 <div class="content">

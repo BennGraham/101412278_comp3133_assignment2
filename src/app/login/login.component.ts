@@ -13,6 +13,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { GraphqlService } from "../network/graphql.service";
 import { Router } from "@angular/router";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
   selector: "app-login",
@@ -42,6 +43,7 @@ export class LoginComponent {
     private graphqlService: GraphqlService,
     private router: Router,
     private snackbar: MatSnackBar,
+    private authService: AuthService,
   ) {}
 
   get username() {
@@ -59,6 +61,7 @@ export class LoginComponent {
         .subscribe({
           next: (user) => {
             if (user) {
+              this.authService.setCurrentUser(user);
               console.log("success, user: ", user);
               this.snackbar.open("Login successful", "Close", {
                 duration: 2000,
