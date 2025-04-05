@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from './auth/auth.service';
 import { User } from './models/user';
 import { Observable } from 'rxjs';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import { Observable } from 'rxjs';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    AvatarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -31,10 +33,12 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title: String;
   isAuthenticated$: Observable<User | null>;
+  currentUser$: Observable<User | null>;
 
   constructor(private authService: AuthService, private router: Router) {
     this.isAuthenticated$ = this.authService.currentUser$;
     this.title = '101412278_comp3133_assignment2';
+    this.currentUser$ = this.authService.currentUser$;
   }
 
   logout() {

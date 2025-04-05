@@ -1,0 +1,12 @@
+<div
+  class="avatar"
+  [style.background-color]="!imageUrl ? generateColor(name) : 'transparent'"
+  [style.width.px]="size"
+  [style.height.px]="size"
+>
+  @if (imageUrl) {
+  <img [src]="imageUrl" [alt]="name" />
+  } @else {
+  <span>{{ getInitials(name) }}</span>
+  }
+</div>

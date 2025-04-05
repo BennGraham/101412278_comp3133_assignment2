@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { GraphqlService } from '../network/graphql.service';
-import { Employee } from '../models/employee';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import { Component, OnInit } from "@angular/core";
+import { GraphqlService } from "../network/graphql.service";
+import { Employee } from "../models/employee";
+import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { AvatarComponent } from "../avatar/avatar.component";
 
 @Component({
-  selector: 'app-employee',
-  imports: [CommonModule, MatCardModule],
-  templateUrl: './employee.component.html',
-  styleUrl: './employee.component.css',
+  selector: "app-employee",
+  imports: [CommonModule, MatCardModule, AvatarComponent],
+  templateUrl: "./employee.component.html",
+  styleUrl: "./employee.component.css",
 })
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
@@ -24,7 +25,7 @@ export class EmployeeComponent implements OnInit {
         this.employees = employees;
       },
       error: (error) => {
-        console.error('Error loading employees', error);
+        console.error("Error loading employees", error);
       },
     });
   }

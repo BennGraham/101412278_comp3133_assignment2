@@ -1,16 +1,17 @@
 <div class="employee-list">
   <mat-card class="employee-card" *ngFor="let employee of employees">
-    <mat-card-header>
-      <mat-card-title
-        >{{ employee.first_name }} {{ employee.last_name }}</mat-card-title
-      >
-      <mat-card-subtitle>{{ employee.designation }}</mat-card-subtitle>
+    <mat-card-header class="employee-title">
+      <app-avatar
+        [name]="`${employee.first_name} ${employee.last_name}`"
+      ></app-avatar>
+      <div>
+        <mat-card-title
+          >{{ employee.first_name }} {{ employee.last_name }}</mat-card-title
+        >
+        <mat-card-subtitle>{{ employee.designation }}</mat-card-subtitle>
+      </div>
     </mat-card-header>
-    <img
-      mat-card-image
-      [src]="employee.photo || 'assets/default-avatar.png'"
-      [alt]="employee.first_name + ' ' + employee.last_name"
-    />
+    <div mat-card-avatar class="employee-avatar"></div>
     <mat-card-content>
       <p><strong>Email:</strong> {{ employee.email }}</p>
       <p><strong>Department:</strong> {{ employee.department }}</p>
