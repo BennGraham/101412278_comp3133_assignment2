@@ -37,19 +37,21 @@ export class GraphqlService {
     return this.apollo
       .query<{ employees: Employee[] }>({
         query: gql`
-        query GetAllEmployees() {
-          employees {
-            id
-            firstName
-            lastName
-            email
-            phoneNumber
-            hireDate
-            jobTitle
-            salary
+          query GetAllEmployees {
+            employees {
+              id
+              first_name
+              last_name
+              email
+              gender
+              designation
+              salary
+              joined_date
+              department
+              photo
+            }
           }
-        }
-      `,
+        `,
         variables: {},
       })
       .pipe(map((result) => result.data!.employees));

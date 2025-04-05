@@ -1,9 +1,9 @@
 export interface Employee {
   id: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  gender: 'M' | 'F' | 'Other';
+  gender: "M" | "F" | "Other";
   designation: string;
   salary: number;
   joined_date: Date;
