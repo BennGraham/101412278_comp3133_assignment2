@@ -3,6 +3,7 @@
   [style.background-color]="!imageUrl ? generateColor(name) : 'transparent'"
   [style.width.px]="size"
   [style.height.px]="size"
+  [style.font-size.px]="size * 0.4"
 >
   @if (imageUrl) {
   <img [src]="imageUrl" [alt]="name" />

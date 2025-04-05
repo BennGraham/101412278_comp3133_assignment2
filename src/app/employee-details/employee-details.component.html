@@ -1,0 +1,60 @@
+<div class="employee-dialog">
+  <button
+    type="button"
+    class="nav-button prev"
+    (click)="navigate('prev')"
+    [autofocus]="false"
+  >
+    <mat-icon class="button-icon">chevron_left</mat-icon>
+  </button>
+
+  <div mat mat-card class="employee-details">
+    <div class="employee-details-header">
+      <app-avatar
+        [name]="data.employee.first_name + ' ' + data.employee.last_name"
+        [size]="100"
+      ></app-avatar>
+      <div class="employee-details-title">
+        <h2>{{ data.employee.first_name }} {{ data.employee.last_name }}</h2>
+        <p>
+          {{ data.employee.designation }}
+        </p>
+      </div>
+    </div>
+    <div class="detail-row">
+      <strong>Department:</strong> {{ data.employee.department }}
+    </div>
+    <div class="detail-row">
+      <strong>Email:</strong> {{ data.employee.email }}
+    </div>
+    <div class="detail-row">
+      <strong>Gender:</strong> {{ data.employee.gender }}
+    </div>
+    <div class="detail-row">
+      <strong>Designation:</strong> {{ data.employee.designation }}
+    </div>
+    <div class="detail-row">
+      <strong>Salary:</strong>
+      {{
+        data.employee.salary.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        })
+      }}
+    </div>
+    <div class="detail-row">
+      <strong>Joined Date:</strong> {{ data.employee.joined_date | date }}
+    </div>
+    <div class="detail-row">
+      <strong>Department:</strong> {{ data.employee.department }}
+    </div>
+  </div>
+
+  <button
+    class="nav-button next"
+    (click)="navigate('next')"
+    [autofocus]="false"
+  >
+    <mat-icon class="button-icon">chevron_right</mat-icon>
+  </button>
+</div>

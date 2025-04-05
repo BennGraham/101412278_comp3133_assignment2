@@ -1,0 +1,89 @@
+.employee-dialog {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  min-height: 400px;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out forwards;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.employee-details {
+  flex: 1;
+  text-align: center;
+  background: transparent;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.detail-row {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.01);
+  border-radius: 0px;
+  margin: 0;
+  padding: 0;
+  max-width: 48px;
+}
+
+h2 {
+  margin: 16px 0;
+}
+
+button {
+  border: none;
+  box-shadow: none;
+  width: 3rem;
+  color: white;
+}
+
+.nav-button.prev:hover .button-icon {
+  transform: translateX(-10px);
+  transition: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.nav-button.next:hover .button-icon {
+  transform: translateX(10px);
+  transition: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  transition: linear;
+  transition-duration: 0.2s;
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.employee-details-header {
+  display: flex;
+  gap: 1rem;
+}
+
+.employee-details-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+}
+
+.employee-details h2 {
+  padding: 0;
+  margin: 0;
+  font-weight: 800;
+  font-size: 2.5rem;
+}
+
+.employee-details-title p {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  opacity: 0.5;
+}

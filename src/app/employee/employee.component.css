@@ -10,6 +10,7 @@
 
 .employee-table {
   background: #303030;
+  width: 100%;
 }
 
 .mat-mdc-row .mat-mdc-cell {
