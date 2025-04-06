@@ -6,7 +6,7 @@
     routerLink="/login"
     routerLinkActive="active-link"
     mat-icon-button
-    aria-label="Login link"
+    [matTooltip]="'Login'"
   >
     <mat-icon>login</mat-icon>
   </button>
@@ -14,7 +14,7 @@
     routerLink="/signup"
     routerLinkActive="active-link"
     mat-icon-button
-    aria-label="Signup link"
+    [matTooltip]="'Signup'"
   >
     <mat-icon>person_add</mat-icon>
   </button>
@@ -23,14 +23,14 @@
     <span class="user-username">{{ user.username }}</span>
   </div>
   }
-  <button (click)="logout()" mat-icon-button aria-label="Logout">
+  <button (click)="logout()" mat-icon-button [matTooltip]="'Logout'">
     <mat-icon>logout</mat-icon>
   </button>
   <button
     routerLink="/employee"
     mat-icon-button
     routerLinkActive="active-link"
-    aria-label="Employee link"
+    [matTooltip]="'Employee'"
   >
     <mat-icon>people</mat-icon>
   </button>

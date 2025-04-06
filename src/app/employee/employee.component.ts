@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NewEmployeeDialogComponent } from '../new-employee-dialog/new-employee-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-employee',
@@ -28,6 +29,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
@@ -36,6 +38,7 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
   employees: Employee[] = [];
   currentEmployeeIndex: number = 0;
   dataSource = new MatTableDataSource<Employee>();
+  isLoading = true;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private graphqlService: GraphqlService,
@@ -158,6 +161,7 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
   }
 
   private onLoad() {
+    this.isLoading = true;
     return this.graphqlService.getAllEmployees().subscribe({
       next: (employees) => {
         this.employees = employees;
@@ -166,13 +170,14 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
           const searchStr = Object.values(data).join(' ').toLowerCase();
           return searchStr.indexOf(filter.toLowerCase()) !== -1;
         };
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading employees', error);
+        this.isLoading = false;
       },
     });
   }
-
   filterEmployees(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
