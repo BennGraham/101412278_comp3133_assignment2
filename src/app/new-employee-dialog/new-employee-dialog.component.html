@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Add New Employee</h2>
+<mat-dialog-content class="new-employee-dialog">
+  <form [formGroup]="employeeForm" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="M">Male</mat-option>
+        <mat-option value="F">Female</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Designation</mat-label>
+      <input matInput formControlName="designation" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Salary</mat-label>
+      <input matInput formControlName="salary" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Photo URL</mat-label>
+      <input matInput formControlName="photo" type="url" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="null">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!employeeForm.valid"
+    (click)="onSubmit()"
+  >
+    Add Employee
+  </button>
+</mat-dialog-actions>

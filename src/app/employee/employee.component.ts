@@ -11,6 +11,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NewEmployeeDialogComponent } from '../new-employee-dialog/new-employee-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-employee',
@@ -23,6 +26,8 @@ import { MatInputModule } from '@angular/material/input';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    DeleteDialogComponent,
+    MatTooltipModule,
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
@@ -42,6 +47,7 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
     'last_name',
     'designation',
     'department',
+    'actions',
   ];
 
   openEmployeeDialog(employee: Employee) {
@@ -63,6 +69,19 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  openNewEmployeeDialog() {
+    const dialogRef = this.dialog.open(NewEmployeeDialogComponent, {
+      minWidth: '600px',
+      maxWidth: '1200px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.addEmployee(result);
+      }
+    });
+  }
+
   updateEmployee(employee: Employee) {
     this.graphqlService.updateEmployee(employee).subscribe({
       next: (updatedEmployee) => {
@@ -77,6 +96,46 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  addEmployee(employee: Omit<Employee, 'id' | 'createdAt' | 'updatedAt'>) {
+    this.graphqlService.addEmployee(employee).subscribe({
+      next: (newEmployee) => {
+        this.employees = [...this.employees, newEmployee];
+        this.dataSource.data = this.employees;
+      },
+      error: (error) => {
+        console.error('Error adding employee:', error);
+      },
+    });
+  }
+
+  deleteEmployee(employee: Employee) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Delete Employee',
+        message: `Are you sure you want to delete ${employee.first_name} ${employee.last_name}?`,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.graphqlService.deleteEmployee(employee.id).subscribe({
+          next: (deletedEmployee) => {
+            this.employees = this.employees.filter(
+              (emp) => emp.id !== deletedEmployee.id
+            );
+            this.dataSource.data = this.employees;
+          },
+          error: (error) => {
+            console.error('Error deleting employee:', error);
+          },
+        });
+      }
+    });
+  }
+
   navigateEmployee(direction: 'prev' | 'next') {
     if (direction === 'next') {
       this.currentEmployeeIndex =
@@ -88,14 +147,6 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
           : this.currentEmployeeIndex - 1;
     }
     return this.employees[this.currentEmployeeIndex];
-  }
-
-  editEmployee(employee: Employee) {
-    console.log('edit button');
-  }
-
-  deleteEmployee(employee: Employee) {
-    console.log('delete button');
   }
 
   ngAfterViewInit() {

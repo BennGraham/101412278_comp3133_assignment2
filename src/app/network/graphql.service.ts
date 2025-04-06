@@ -120,4 +120,68 @@ export class GraphqlService {
       })
       .pipe(map((result) => result.data!.updateEmployee));
   }
+
+  addEmployee(
+    employee: Omit<Employee, 'id' | 'createdAt' | 'updatedAt'>
+  ): Observable<Employee> {
+    return this.apollo
+      .mutate<{ addEmployee: Employee }>({
+        mutation: gql`
+          mutation AddEmployee($employee: EmployeeCreateRequest!) {
+            addEmployee(employee: $employee) {
+              id
+              first_name
+              last_name
+              email
+              gender
+              designation
+              salary
+              joined_date
+              department
+              photo
+            }
+          }
+        `,
+        variables: {
+          employee: {
+            first_name: employee.first_name,
+            last_name: employee.last_name,
+            email: employee.email,
+            gender: employee.gender,
+            designation: employee.designation,
+            salary: employee.salary,
+            joined_date: employee.joined_date,
+            department: employee.department,
+            photo: employee.photo,
+          },
+        },
+      })
+      .pipe(map((result) => result.data!.addEmployee));
+  }
+
+  deleteEmployee(id: string): Observable<Employee> {
+    return this.apollo
+      .mutate<{ deleteEmployee: Employee }>({
+        mutation: gql`
+          mutation DeleteEmployee($id: ID!) {
+            deleteEmployee(id: $id) {
+              id
+              first_name
+              last_name
+              email
+              gender
+              designation
+              salary
+              joined_date
+              department
+              photo
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      })
+      .pipe(map((result) => result.data!.deleteEmployee));
+  }
 }

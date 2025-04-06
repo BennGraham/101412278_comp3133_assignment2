@@ -1,5 +1,16 @@
 <div class="employee-list">
-  <h2>Employees</h2>
+  <div class="employee-list-header">
+    <h2>Employees</h2>
+    <button
+      mat-raised-button
+      class="add-employee-button"
+      color="primary"
+      (click)="openNewEmployeeDialog()"
+    >
+      <mat-icon>add</mat-icon>
+      Add Employee
+    </button>
+  </div>
 
   <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -30,6 +41,21 @@
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
       <td mat-cell *matCellDef="let employee">{{ employee.department }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let employee" class="actions-cell">
+        <button
+          mat-icon-button
+          class="delete-button"
+          color="primary"
+          (click)="$event.stopPropagation(); deleteEmployee(employee)"
+          [matTooltip]="'Delete employee'"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

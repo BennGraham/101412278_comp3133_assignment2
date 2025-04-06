@@ -11,7 +11,7 @@
 
   <div mat-card class="employee-details">
     <button
-      mat-fab
+      mat-icon-button
       color="primary"
       (click)="toggleEditMode()"
       class="edit-button"
@@ -28,7 +28,7 @@
         ></app-avatar>
         <div class="employee-details-title">
           <h2>{{ data.employee.first_name }} {{ data.employee.last_name }}</h2>
-          <p>{{ data.employee.designation }}</p>
+          <h3>{{ data.employee.designation }}</h3>
         </div>
       </div>
 

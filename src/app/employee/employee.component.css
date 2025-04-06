@@ -22,3 +22,58 @@
 .mat-mdc-row:hover .mat-mdc-cell {
   border-color: currentColor;
 }
+
+.employee-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions-cell {
+  width: 32px;
+  text-align: center;
+}
+
+.delete-button {
+  border: none;
+  box-shadow: none;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  background: transparent;
+}
+
+.mat-mdc-row:hover .delete-button {
+  opacity: 1;
+}
+
+.delete-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.delete-button:active {
+  scale: 0.95;
+}
+
+.add-employee-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  font-size: 1rem;
+  border: none;
+  box-shadow: none;
+  background: none;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.add-employee-button:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.add-employee-button:active {
+  scale: 0.95;
+}
