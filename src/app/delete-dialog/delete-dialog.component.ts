@@ -16,6 +16,7 @@ export interface DeleteDialogData {
 
 @Component({
   selector: 'app-delete-confirmation-dialog',
+  standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './delete-dialog.component.html',
   styleUrl: './delete-dialog.component.css',

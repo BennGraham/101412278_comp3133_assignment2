@@ -12,11 +12,12 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NewEmployeeDialogComponent } from '../new-employee-dialog/new-employee-dialog.component';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-employee',
+  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
@@ -26,7 +27,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    DeleteDialogComponent,
     MatTooltipModule,
   ],
   templateUrl: './employee.component.html',
