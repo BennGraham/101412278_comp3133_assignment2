@@ -49,13 +49,30 @@ export class EmployeeComponent implements OnInit, AfterViewInit {
     this.currentEmployeeIndex = currentIndex;
 
     const dialogRef = this.dialog.open(EmployeeDetailsComponent, {
-      width: '600px',
+      minWidth: '600px',
+      maxWidth: '1200px',
       data: {
         employee,
         currentIndex: this.currentEmployeeIndex,
         totalEmployees: this.employees.length,
         onNavigate: (direction: 'prev' | 'next') =>
           this.navigateEmployee(direction),
+        onUpdate: (updatedEmployee: Employee) =>
+          this.updateEmployee(updatedEmployee),
+      },
+    });
+  }
+
+  updateEmployee(employee: Employee) {
+    this.graphqlService.updateEmployee(employee).subscribe({
+      next: (updatedEmployee) => {
+        this.employees = this.employees.map((emp) =>
+          emp.id === updatedEmployee.id ? updatedEmployee : emp
+        );
+        this.dataSource.data = this.employees;
+      },
+      error: (error) => {
+        console.error('Error updating employee:', error);
       },
     });
   }

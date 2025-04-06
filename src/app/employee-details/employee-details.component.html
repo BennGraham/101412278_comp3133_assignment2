@@ -1,59 +1,133 @@
-<div class="employee-dialog">
+<div class="employee-dialog" [class.editing]="isEditMode">
   <button
     type="button"
     class="nav-button prev"
     (click)="navigate('prev')"
-    [autofocus]="false"
+    [disabled]="isEditMode"
+    [class.hidden]="isEditMode"
   >
     <mat-icon class="button-icon">chevron_left</mat-icon>
   </button>
 
-  <div mat mat-card class="employee-details">
-    <div class="employee-details-header">
-      <app-avatar
-        [name]="data.employee.first_name + ' ' + data.employee.last_name"
-        [size]="100"
-      ></app-avatar>
-      <div class="employee-details-title">
-        <h2>{{ data.employee.first_name }} {{ data.employee.last_name }}</h2>
-        <p>
-          {{ data.employee.designation }}
-        </p>
+  <div mat-card class="employee-details">
+    <button
+      mat-fab
+      color="primary"
+      (click)="toggleEditMode()"
+      class="edit-button"
+      [matTooltip]="isEditMode ? 'Cancel editing' : 'Edit employee'"
+    >
+      <mat-icon>{{ isEditMode ? "close" : "edit" }}</mat-icon>
+    </button>
+
+    <div class="view-mode" [class.hidden]="isEditMode">
+      <div class="employee-details-header">
+        <app-avatar
+          [name]="data.employee.first_name + ' ' + data.employee.last_name"
+          [size]="100"
+        ></app-avatar>
+        <div class="employee-details-title">
+          <h2>{{ data.employee.first_name }} {{ data.employee.last_name }}</h2>
+          <p>{{ data.employee.designation }}</p>
+        </div>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-row">
+          <mat-icon>business</mat-icon>
+          <span>
+            <strong>Department:</strong> {{ data.employee.department }}
+          </span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>email</mat-icon>
+          <span> <strong>Email:</strong> {{ data.employee.email }} </span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>person</mat-icon>
+          <span> <strong>Gender:</strong> {{ data.employee.gender }} </span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>payments</mat-icon>
+          <span>
+            <strong>Salary:</strong>
+            {{ data.employee.salary | currency }}
+          </span>
+        </div>
+        <div class="detail-row">
+          <mat-icon>calendar_today</mat-icon>
+          <span>
+            <strong>Joined:</strong> {{ data.employee.joined_date | date }}
+          </span>
+        </div>
       </div>
     </div>
-    <div class="detail-row">
-      <strong>Department:</strong> {{ data.employee.department }}
-    </div>
-    <div class="detail-row">
-      <strong>Email:</strong> {{ data.employee.email }}
-    </div>
-    <div class="detail-row">
-      <strong>Gender:</strong> {{ data.employee.gender }}
-    </div>
-    <div class="detail-row">
-      <strong>Designation:</strong> {{ data.employee.designation }}
-    </div>
-    <div class="detail-row">
-      <strong>Salary:</strong>
-      {{
-        data.employee.salary.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        })
-      }}
-    </div>
-    <div class="detail-row">
-      <strong>Joined Date:</strong> {{ data.employee.joined_date | date }}
-    </div>
-    <div class="detail-row">
-      <strong>Department:</strong> {{ data.employee.department }}
-    </div>
+
+    <form
+      [formGroup]="employeeForm"
+      class="edit-mode"
+      [class.hidden]="!isEditMode"
+    >
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="first_name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="M">Male</mat-option>
+            <mat-option value="F">Female</mat-option>
+            <mat-option value="Other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Department</mat-label>
+          <input matInput formControlName="department" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Designation</mat-label>
+          <input matInput formControlName="designation" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Salary</mat-label>
+          <input matInput formControlName="salary" type="number" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveChanges()"
+          [disabled]="!employeeForm.valid"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
   </div>
 
   <button
+    type="button"
     class="nav-button next"
     (click)="navigate('next')"
-    [autofocus]="false"
+    [disabled]="isEditMode"
+    [class.hidden]="isEditMode"
   >
     <mat-icon class="button-icon">chevron_right</mat-icon>
   </button>

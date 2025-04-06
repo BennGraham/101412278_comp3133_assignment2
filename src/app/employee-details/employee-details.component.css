@@ -1,11 +1,18 @@
 .employee-dialog {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  position: relative;
+  display: flex;
+  padding: 0 2rem;
   gap: 1rem;
   min-height: 400px;
   z-index: 9999;
   animation: fadeIn 0.3s ease-out forwards;
   background: rgba(0, 0, 0, 0.2);
+}
+
+.employee-dialog:not(.editing) {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 0;
 }
 
 .employee-details {
@@ -16,6 +23,9 @@
 }
 
 .detail-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
   margin: 8px 0;
   text-align: left;
 }
@@ -86,4 +96,48 @@ button:hover {
   padding: 0;
   font-weight: 500;
   opacity: 0.5;
+}
+
+.hidden {
+  display: none;
+}
+
+.edit-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 4rem;
+}
+
+.details-grid {
+  padding: 2rem 0;
+  display: grid;
+  row-gap: 1rem;
+  font-size: 1.25rem;
+  grid-template-columns: repeat(2, minmax(400px, 1fr));
+  align-items: center;
+  justify-content: start;
+}
+
+.edit-mode {
+  height: 100%;
+  width: 100%;
+}
+
+.edit-mode:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(400px, 1fr));
+  gap: 1rem;
+}
+
+.mat-mdc-raised-button {
+  border-radius: 0.75rem;
+  width: 9rem;
+  height: 2rem;
 }
